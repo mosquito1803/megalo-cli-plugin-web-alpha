@@ -16,7 +16,8 @@ module.exports = (api, options) => {
       const VueLoaderPlugin = require('vue-loader/lib/plugin')
       const TerserPlugin = require('terser-webpack-plugin')
       const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-      const CopyWebpackPlugin = require('copy-webpack-plugin')
+			const CopyWebpackPlugin = require('copy-webpack-plugin')
+			const HtmlWebpackPlugin = require('html-webpack-plugin')
 
       const target = createTarget()
 
@@ -36,11 +37,10 @@ module.exports = (api, options) => {
           .chunkFilename(isProd ? '[name].[id].[contenthash].js' : '[name].[id].js')
     
       // web dev环境添加dev-server
-			chainConfig
-				.when(isProd, config => {
-					config.devServer
+			!prod && chainConfig
+				.devServer
 						.open(true)
-				})
+
 
       // 提取公共文件、压缩混淆
       chainConfig.optimization
@@ -141,7 +141,16 @@ module.exports = (api, options) => {
           .use(VueLoaderPlugin)
           .end()
         .plugin('mini-css-extract-plugin')
-          .use(MiniCssExtractPlugin, [{ filename: `static/css/[name].${cssExt}` }])
+					.use(MiniCssExtractPlugin, [{ filename: `static/css/[name].${cssExt}` }])
+				.plugin('html-webpack-plugin')
+					.use(HtmlWebpackPlugin, [{
+            filename: 'index.html',
+            template: 'src/web/index.html'
+				}])
+				.plugin('copy-webpack-plugin')
+					.use(CopyWebpackPlugin, [{
+            from: 'src/static', to: 'static'
+        	}])
 
 			chainConfig.stats({
         all: false,
