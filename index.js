@@ -142,11 +142,13 @@ module.exports = (api, options) => {
           .end()
         .plugin('mini-css-extract-plugin')
 					.use(MiniCssExtractPlugin, [{ filename: `static/css/[name].${cssExt}` }])
+					.end()
 				.plugin('html-webpack-plugin')
 					.use(HtmlWebpackPlugin, [{
             filename: 'index.html',
             template: 'src/web/index.html'
-				}])
+					}])
+					.end()
 				.plugin('copy-webpack-plugin')
 					.use(CopyWebpackPlugin, [{
             from: 'src/static', to: 'static'
