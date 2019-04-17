@@ -37,7 +37,7 @@ module.exports = (api, options) => {
           .chunkFilename(isProd ? '[name].[id].[contenthash].js' : '[name].[id].js')
     
       // web dev环境添加dev-server
-			!prod && chainConfig
+			!isProd && chainConfig
 				.devServer
 						.open(true)
 
