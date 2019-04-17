@@ -216,13 +216,14 @@ module.exports = (api, options) => {
     // 页面entry
     const { pagesEntry } = require('@megalo/entry')
 
-    return { appEntry: appEntryPath, pagesEntry: pagesEntry(appEntryPath) }
+    return { appEntry: appEntryPath, pagesEntry: pagesEntry(appEntryPath, options) }
   }
 
   function createTarget () {
     const createMegaloTarget = require('@megalo/target')
     const targetConfig = {
-      platform
+			platform,
+			projectOptions: options
     }
 
     return createMegaloTarget(targetConfig)
