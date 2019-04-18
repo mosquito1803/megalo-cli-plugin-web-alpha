@@ -220,7 +220,7 @@ module.exports = (api, options) => {
   }
 
   function createTarget () {
-    const createMegaloTarget = require('@megalo/target')
+    const createMegaloTarget = require('megalo-target-debug')
     const targetConfig = {
 			platform,
 			compiler: require('vue-template-compiler'),
