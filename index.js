@@ -223,6 +223,7 @@ module.exports = (api, options) => {
     const createMegaloTarget = require('@megalo/target')
     const targetConfig = {
 			platform,
+			compiler: require('vue-template-compiler'),
 			projectOptions: options
     }
 
